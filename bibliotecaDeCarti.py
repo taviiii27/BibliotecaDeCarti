@@ -4,12 +4,21 @@ import json
 app=Flask(__name__)
 listaCarti=[]
 
+def load_books():
+    global listaCarti
+    try:
+        with open('books.json', 'r') as f:
+            listaCarti = json.load(f)
+    except Exception as e:
+        print(f"Eroare la incarcarea cărților: {str(e)}")
+load_books()
+
 #Create
 @app.route('/library', methods=['POST'])
 def createLibrary():
     dateCarti=request.json
     try:
-        if not dateCarti :#tb verificata si valoarea cheilor, nu doar existenta lor!!#verificam daca exista si json in sine nu dar chei valori date etc!
+        if not dateCarti :
             return jsonify({"mesaj":"tb sa existe nume si autor, ambele!!!"}), 400
         if 'nume' not in dateCarti or 'autor' not in dateCarti:
             return jsonify({"mesaj": "Request-ul trebuie să conțină cheile 'nume' și 'autor'!"}), 400
