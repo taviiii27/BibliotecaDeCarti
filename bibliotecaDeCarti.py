@@ -65,7 +65,7 @@ def updateBooks(nume): #am astfel pt ca updatez numele cartilor in fct de nume
                     if autorNou:
                         carte['autor']=autorNou
                     return jsonify({"mesaj":"inlocuirea a fsot realizata"}),200
-        return jsonify({"eroare": "carte inexistenta"}), 404
+        return jsonify({"eroare": "carte inexistenta"}), 400
     except ValueError as e:
         return jsonify({"eroare": "ceva nu a mers corespunzator"}), 500
     
@@ -79,7 +79,7 @@ def removeBook(nume):
                 return jsonify({"mesaj":"cartea a fost scoasa din biblioteca"}), 200
         return jsonify({"mesaj": "cartea nu exista"}), 400
     except ValueError as e:
-        return jsonify({"eroare": "ceva nu a mers coresupnzator"}), 404
+        return jsonify({"eroare": "ceva nu a mers coresupnzator"}), 500
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
